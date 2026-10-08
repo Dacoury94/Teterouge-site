@@ -101,7 +101,7 @@
         */
 
         // Simule un délai réseau pour la UX
-        await new Promise(r => setTimeout(r, 600));
+        const response = await fetch("https://formspree.io/f/moejdkjd", { method: "POST", headers: { "Accept": "application/json" }, body: JSON.stringify(data) }); if (!response.ok) throw new Error("Erreur Formspree");
 
         // Affiche le message de succès
         form.querySelectorAll('.form-row, button').forEach(el => {
