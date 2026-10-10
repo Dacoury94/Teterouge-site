@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide d'utilisation — Tête Rouge</title>
+<meta name="description" content="Guide d'installation et d'utilisation de Tête Rouge.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="brand">
+      <span class="brand-icon">🤖</span>
+      <span class="brand-name">Tête Rouge</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="index.html#pricing">Tarifs</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#waitlist" class="nav-cta">Rejoindre</a>
+    </nav>
+  </div>
+</header>
+
+<main class="legal-page">
+  <div class="container container-narrow">
+    <h1>Guide d'utilisation</h1>
+    <p class="legal-date">Tête Rouge v1.0 — Octobre 2026</p>
+
+    <p class="legal-intro">
+      Ce guide t'accompagne de l'installation à l'usage quotidien de Tête Rouge.
+      Si tu bloques, consulte la section <a href="#depannage">Dépannage</a>
+      ou écris à <a href="mailto:support@teterouge.fr">support@teterouge.fr</a>.
+    </p>
+
+    <h2 id="sommaire">Sommaire</h2>
+    <ul>
+      <li><a href="#prerequis">1. Prérequis</a></li>
+      <li><a href="#installation">2. Installation</a></li>
+      <li><a href="#premiers-pas">3. Premiers pas</a></li>
+      <li><a href="#chat">4. Utiliser le chat</a></li>
+      <li><a href="#audio">5. Audio et transcription</a></li>
+      <li><a href="#historique">6. Historique et recherche</a></li>
+      <li><a href="#mode-local">7. Mode 100% local</a></li>
+      <li><a href="#packs">8. Les packs d'outils</a></li>
+      <li><a href="#securite">9. Sécurité et confidentialité</a></li>
+      <li><a href="#depannage">10. Dépannage</a></li>
+      <li><a href="#faq">11. FAQ</a></li>
+    </ul>
+    <h2 id="prerequis">1. Prérequis</h2>
+    <p>Pour installer Tête Rouge, tu as besoin de :</p>
+    <ul>
+      <li><strong>Un appareil Android</strong> (tablette ou téléphone) sous Android 10 minimum</li>
+      <li><strong>4 Go de RAM</strong> minimum (6 Go recommandé pour le confort)</li>
+      <li><strong>4 Go d'espace libre</strong> pour les modèles d'IA locaux</li>
+      <li><strong>Termux</strong> installé depuis F-Droid (PAS depuis le Play Store)</li>
+      <li><strong>Termux:Boot</strong> (optionnel, pour le démarrage automatique)</li>
+      <li><strong>Une clé API Groq</strong> gratuite — <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a></li>
+      <li><strong>Une clé de licence Tête Rouge</strong> (TTR-XXXX-XXXX-XXXX) reçue par email</li>
+    </ul>
+    <p>
+      ⚠️ <strong>Important</strong> : n'installe pas Termux depuis le Play Store, il est obsolète
+      et incompatible avec Termux:Boot. Utilise F-Droid : <a href="https://f-droid.org" target="_blank">f-droid.org</a>
+    </p>
+
+    <h2 id="installation">2. Installation</h2>
+    <p>L'installation prend environ 15 à 20 minutes. Voici les étapes :</p>
+
+    <h3>2.1 Installer les apps Android</h3>
+    <ol>
+      <li>Ouvre F-Droid</li>
+      <li>Cherche <strong>Termux</strong> et installe-le</li>
+      <li>Cherche <strong>Termux:Boot</strong> et installe-le (optionnel mais recommandé)</li>
+      <li>Ouvre Termux:Boot une fois (pour l'activer)</li>
+      <li>Dans les paramètres Android → Applications → Termux → Batterie → <strong>désactive l'optimisation batterie</strong></li>
+    </ol>
+
+    <h3>2.2 Transférer l'installateur</h3>
+    <p>
+      Tu vas recevoir par email un fichier nommé
+      <code>teterouge_installer_v1.0_DATE.tar.gz</code> (~65 Ko).
+      Télécharge-le sur ton appareil (dans le dossier Téléchargements par défaut).
+    </p>
+
+    <h3>2.3 Lancer l'installation</h3>
+    <p>Ouvre Termux et tape ces commandes (une par une) :</p>
+    <pre><code>cd ~
+tar -xzf /storage/emulated/0/Download/teterouge_installer_v1.0_20261010.tar.gz
+cd teterouge_installer
+bash install.sh</code></pre>
+    <p>Le script va te demander :</p>
+    <ol>
+      <li><strong>Ta clé API Groq</strong> (colle-la, elle commence par <code>gsk_</code>)</li>
+      <li><strong>Ta clé de licence Tête Rouge</strong> (format <code>TTR-XXXX-XXXX-XXXX</code>)</li>
+    </ol>
+    <p>
+      À la fin, <strong>note ton token d'accès</strong> qui s'affichera à l'écran.
+      Tu en auras besoin pour te connecter à l'interface.
+    </p>
+    <p>
+      ⏱️ <strong>Durée</strong> : environ 15 minutes, dont 10 minutes de compilation de Whisper
+      (la tablette va chauffer, c'est normal).
+    </p>
+    <h2 id="premiers-pas">3. Premiers pas</h2>
+    <p>Une fois l'installation terminée :</p>
+    <ol>
+      <li>Ouvre <strong>Brave</strong> (ou Chrome) sur ton appareil</li>
+      <li>Va sur : <code>http://127.0.0.1:8000</code></li>
+      <li><strong>Colle ton token d'accès</strong> dans l'écran de login</li>
+      <li>Clique sur <strong>Se connecter</strong></li>
+    </ol>
+    <p>Tu arrives sur l'interface de chat. Pour l'ajouter à ton écran d'accueil :</p>
+    <ul>
+      <li><strong>Brave</strong> : menu ⋮ → "Installer et créer un raccourci"</li>
+      <li><strong>Chrome</strong> : menu ⋮ → "Installer l'application"</li>
+    </ul>
+    <p>Tu auras alors une icône 🤖 sur ton écran d'accueil, comme une vraie app.</p>
+
+    <h2 id="chat">4. Utiliser le chat</h2>
+    <p>Le chat fonctionne comme avec n'importe quel assistant IA. Tu tapes ton message, tu appuies sur ➤, tu reçois une réponse.</p>
+
+    <h3>Les commandes utiles</h3>
+    <ul>
+      <li><strong>☰</strong> : ouvre la sidebar (historique des conversations)</li>
+      <li><strong>☁️ / 🔒</strong> : bascule entre cloud (Groq) et mode local</li>
+      <li><strong>↺</strong> : réinitialise la conversation en cours</li>
+      <li><strong>⚙</strong> : affiche la liste des outils disponibles</li>
+      <li><strong>⏻</strong> : déconnexion (le token sera à ressaisir)</li>
+      <li><strong>📎</strong> : envoyer un fichier audio</li>
+      <li><strong>🎤</strong> : appui long pour enregistrer au micro</li>
+    </ul>
+
+    <h3>Exemples de questions</h3>
+    <ul>
+      <li>« Cherche dans mes notes ce qui concerne X »</li>
+      <li>« Génère un mot de passe de 32 caractères »</li>
+      <li>« Analyse ce lien : https://example.com »</li>
+      <li>« Résume ce document » (avec 📎)</li>
+      <li>« Explique-moi en 3 phrases pourquoi... »</li>
+    </ul>
+
+    <h2 id="audio">5. Audio et transcription</h2>
+    <p>Tête Rouge peut transcrire tes audios en texte, dans 100 langues.</p>
+
+    <h3>Avec le bouton 🎤 (micro)</h3>
+    <ol>
+      <li>Appuie longuement sur 🎤</li>
+      <li>Parle clairement (3 à 30 secondes)</li>
+      <li>Relâche</li>
+      <li>La transcription apparaît en quelques secondes</li>
+    </ol>
+
+    <h3>Avec le bouton 📎 (fichier)</h3>
+    <ol>
+      <li>Appuie sur 📎</li>
+      <li>Choisis un fichier audio (mp3, m4a, wav, ogg, flac)</li>
+      <li>La transcription apparaît</li>
+    </ol>
+
+    <p>
+      ⚡ <strong>Transcription locale</strong> : par défaut, tout se fait sur ton appareil via Whisper.
+      Aucun audio ne sort de ton téléphone.
+    </p>
+
+    <h2 id="historique">6. Historique et recherche</h2>
+    <p>Toutes tes conversations sont sauvegardées localement (SQLite chiffré sur ton appareil).</p>
+
+    <h3>Consulter l'historique</h3>
+    <ol>
+      <li>Appuie sur ☰</li>
+      <li>Tu vois la liste de tes conversations avec leur titre auto-généré</li>
+      <li>Clique sur une conversation pour la reprendre</li>
+    </ol>
+
+    <h3>Rechercher dans l'historique</h3>
+    <ol>
+      <li>Appuie sur ☰</li>
+      <li>Tape un mot-clé dans la barre 🔍</li>
+      <li>Les résultats apparaissent en direct avec le mot surligné</li>
+    </ol>
+
+    <h3>Exporter / importer</h3>
+    <ul>
+      <li><strong>⬇ Exporter</strong> : télécharge toutes tes conversations en JSON</li>
+      <li><strong>⬆ Importer</strong> : restaure un export précédent</li>
+    </ul>
+
+    <h3>Purge automatique</h3>
+    <p>
+      Les conversations de plus de <strong>180 jours</strong> sont automatiquement supprimées
+      au démarrage de Tête Rouge. Tu peux modifier cette durée dans <code>~/.teterouge_settings.json</code>.
+    </p>
+
+    <h2 id="mode-local">7. Mode 100% local</h2>
+    <p>
+      Par défaut, Tête Rouge utilise Groq (cloud) pour la génération de texte complexe,
+      car c'est plus rapide et plus puissant. Mais tu peux basculer en mode 100% local.
+    </p>
+
+    <h3>Activer le mode local</h3>
+    <ol>
+      <li>Appuie sur ☁️ dans le header</li>
+      <li>Le bouton devient 🔒 (vert)</li>
+      <li>Un message confirme : « Mode 100% local activé »</li>
+    </ol>
+
+    <h3>Ce qui change</h3>
+    <ul>
+      <li><strong>Aucune donnée ne sort de ton appareil</strong></li>
+      <li>La génération utilise Ollama (local)</li>
+      <li>Réponses 2 à 4 fois plus lentes (10-25 sec au lieu de 3-8 sec)</li>
+      <li>Qualité légèrement inférieure (modèle 1.5B au lieu de 120B)</li>
+      <li>Pas d'utilisation d'outils (le LLM local ne gère pas les tool calls)</li>
+    </ul>
+
+    <h3>Quand l'utiliser</h3>
+    <ul>
+      <li>Tu traites un sujet confidentiel</li>
+      <li>Tu n'as pas de connexion Internet</li>
+      <li>Tu veux économiser ton quota Groq</li>
+    </ul>
+
+    <p>
+      Le mode local persiste jusqu'à ce que tu le désactives. Il reste actif même après
+      redémarrage de l'appareil.
+    </p>
+    <h2 id="packs">8. Les packs d'outils</h2>
+    <p>Tête Rouge est proposé en différents packs selon tes besoins :</p>
+
+    <h3>Pack Core (gratuit, toujours inclus)</h3>
+    <ul>
+      <li>Lire un fichier</li>
+      <li>Écrire un fichier</li>
+      <li>Exécuter des commandes shell</li>
+    </ul>
+
+    <h3>Pack Sécurité (+)</h3>
+    <ul>
+      <li>Chiffrement / déchiffrement de fichiers</li>
+      <li>Hash MD5, SHA-256</li>
+      <li>Vérification de fuites de mots de passe (HIBP)</li>
+      <li>Analyse de fichiers via VirusTotal</li>
+      <li>Scan de ports TCP</li>
+      <li>Générateur de mots de passe</li>
+    </ul>
+
+    <h3>Pack YouTube (+)</h3>
+    <ul>
+      <li>Télécharger l'audio d'une vidéo YouTube</li>
+      <li>Transcription automatique (Whisper)</li>
+      <li>Traduction audio → texte</li>
+      <li>Analyse vidéo pour YouTube</li>
+      <li>Upload YouTube automatique (OAuth)</li>
+    </ul>
+
+    <h3>Pack Complet</h3>
+    <p>Tous les outils des 3 packs ci-dessus.</p>
+
+    <p>
+      Pour changer de pack, contacte <a href="mailto:support@teterouge.fr">support@teterouge.fr</a>.
+    </p>
+
+    <h2 id="securite">9. Sécurité et confidentialité</h2>
+
+    <h3>Ce qui reste chez toi</h3>
+    <ul>
+      <li><strong>Transcription audio</strong> : Whisper tourne en local</li>
+      <li><strong>Recherche documentaire</strong> : SQLite + embeddings locaux (RAG)</li>
+      <li><strong>Chiffrement de fichiers</strong> : Fernet + PBKDF2 480k</li>
+      <li><strong>Historique des conversations</strong> : SQLite local</li>
+      <li><strong>Mode 100% local</strong> : rien ne sort quand il est actif</li>
+    </ul>
+
+    <h3>Ce qui passe par le cloud (optionnel)</h3>
+    <ul>
+      <li>Génération de texte complexe (Groq) — désactivable via mode local</li>
+      <li>Analyse VirusTotal (hash uniquement, pas le fichier)</li>
+      <li>Vérification HIBP (5 premiers caractères du SHA1)</li>
+      <li>Upload YouTube (si tu l'utilises)</li>
+    </ul>
+
+    <h3>Comment protéger tes données</h3>
+    <ul>
+      <li>Utilise le <strong>mode 100% local</strong> pour les sujets sensibles</li>
+      <li>Active le <strong>verrouillage biométrique</strong> de ton appareil</li>
+      <li>Chiffre tes fichiers importants avec <strong>chiffrer_fichier</strong></li>
+      <li>Sauvegarde régulièrement via <strong>⬇ Exporter</strong></li>
+      <li>Utilise un mot de passe maître fort pour ton téléphone</li>
+    </ul>
+
+    <h3>Ton token d'accès</h3>
+    <p>
+      Ton token permet d'accéder à l'interface locale. Ne le partage jamais.
+      Si tu le perds, tu peux en générer un nouveau dans Termux :
+    </p>
+    <pre><code>python3 -c "import secrets; print(secrets.token_urlsafe(48))" &gt; ~/.teterouge_api_token
+chmod 600 ~/.teterouge_api_token
+sv restart teterouge</code></pre>
+
+    <h2 id="depannage">10. Dépannage</h2>
+
+    <h3>Le site ne s'ouvre pas</h3>
+    <pre><code>sv status teterouge</code></pre>
+    <p>Si le service est arrêté :</p>
+    <pre><code>sv up teterouge</code></pre>
+
+    <h3>« Failed to fetch » dans Brave</h3>
+    <p>
+      Brave bloque les connexions locales par défaut. Clique sur le bouclier Brave
+      (à gauche de la barre d'adresse) → désactive les Shields pour ce site.
+    </p>
+
+    <h3>Ollama ne répond pas</h3>
+    <pre><code>pgrep ollama || nohup ollama serve &gt; ~/.ollama.log 2&gt;&amp;1 &amp;</code></pre>
+
+    <h3>Le widget affiche « Hors ligne »</h3>
+    <p>Ferme et rouvre le widget. Le statut se rafraîchit toutes les 30 secondes.</p>
+
+    <h3>La licence n'est plus valide</h3>
+    <p>
+      Vérifie ta clé dans <code>~/.teterouge_license</code> ou contacte le support.
+      En cas de doute, une licence valide se vérifie en ligne sur notre API.
+    </p>
+
+    <h3>Le service ne redémarre pas au boot</h3>
+    <ol>
+      <li>Vérifie que Termux:Boot est installé et ouvert une fois</li>
+      <li>Désactive l'optimisation batterie pour Termux</li>
+      <li>Vérifie que <code>~/.termux/boot/01-teterouge.sh</code> existe</li>
+    </ol>
+
+    <h2 id="faq">11. FAQ</h2>
+
+    <h3>Combien de vidéos puis-je produire avec Tête Rouge ?</h3>
+    <p>Aucune limite imposée par Tête Rouge. Tout dépend de ton temps et de ton quota Groq (généreux et gratuit).</p>
+
+    <h3>Est-ce que je peux l'utiliser sur plusieurs appareils ?</h3>
+    <p>Oui, en installant Tête Rouge sur chaque appareil avec la même clé de licence.</p>
+
+    <h3>Que se passe-t-il si je change de téléphone ?</h3>
+    <p>Réinstalle Tête Rouge sur le nouveau téléphone avec la même clé. Ton historique ne sera pas transféré automatiquement (utilise ⬇ Exporter puis ⬆ Importer).</p>
+
+    <h3>Est-ce que Tête Rouge fonctionne sans Internet ?</h3>
+    <p>
+      Partiellement. Toutes les fonctions locales (transcription, RAG, chiffrement, recherche)
+      fonctionnent hors ligne. La génération de texte cloud et la vérification de licence
+      (une fois par jour max) nécessitent une connexion.
+    </p>
+
+    <h3>Mes données sont-elles vraiment privées ?</h3>
+    <p>
+      Oui, à 75%. Les 25% restants correspondent à la génération de texte cloud,
+      que tu peux désactiver avec le mode 100% local. Contrairement à ChatGPT,
+      nous ne stockons ni n'exploitons tes conversations.
+    </p>
+
+    <h3>Que se passe-t-il si je ne paie plus ?</h3>
+    <p>
+      Ton accès aux packs payants est révoqué dans les 24h. Le mode démo reste disponible
+      avec les 3 outils Core gratuits.
+    </p>
+
+    <h3>Puis-je l'utiliser pour des recherches sensibles ?</h3>
+    <p>
+      Oui, mais active le mode 100% local pour garantir que rien ne sort de ton appareil.
+    </p>
+
+    <h3>Comment obtenir du support ?</h3>
+    <p>Écris à <a href="mailto:support@teterouge.fr">support@teterouge.fr</a>. Réponse sous 48h (24h pour les abonnés annuels).</p>
+
+    <hr style="margin: 60px 0; border: none; border-top: 1px solid rgba(255,255,255,0.1);">
+
+    <p style="text-align: center; color: #8888aa; font-size: 14px;">
+      Guide v1.0 — Octobre 2026<br>
+      <a href="index.html">Retour à l'accueil</a> ·
+      <a href="mailto:support@teterouge.fr">Contacter le support</a>
+    </p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <div class="brand">
+        <span class="brand-icon">🤖</span>
+        <span class="brand-name">Tête Rouge</span>
+      </div>
+      <p class="footer-tagline">L'agent IA souverain pour créateurs exigeants.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Produit</h4>
+        <a href="index.html#features">Fonctionnalités</a>
+        <a href="index.html#pricing">Tarifs</a>
+        <a href="guide.html">Guide</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Légal</h4>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="cgu.html">CGU</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:support@teterouge.fr">support@teterouge.fr</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">© 2026 Tête Rouge. Tous droits réservés.</div>
+  </div>
+</footer>
+
+</body>
+</html>
